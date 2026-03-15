@@ -1,0 +1,401 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "坚果云文件操作 API",
+    "description": "基于 Golang 的坚果云文件管理工具，通过 WebDAV 协议实现文件的增删改查操作",
+    "version": "2.0.0",
+    "contact": {
+      "name": "GitHub Issues",
+      "url": "https://github.com/your-username/jianguoyun-app/issues"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8081",
+      "description": "本地开发服务器"
+    }
+  ],
+  "paths": {
+    "/api/files/list": {
+      "get": {
+        "summary": "列出目录内容",
+        "tags": ["文件操作"],
+        "parameters": [
+          {
+            "name": "path",
+            "in": "query",
+            "description": "目录路径",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "/"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/File"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/files/upload": {
+      "post": {
+        "summary": "上传文件",
+        "tags": ["文件操作"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "description": "文件路径"
+                  },
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "文件内容"
+                  }
+                },
+                "required": ["path", "file"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "上传成功"
+          }
+        }
+      }
+    },
+    "/api/files/download": {
+      "get": {
+        "summary": "下载文件",
+        "tags": ["文件操作"],
+        "parameters": [
+          {
+            "name": "path",
+            "in": "query",
+            "description": "文件路径",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "文件内容",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/files/delete": {
+      "delete": {
+        "summary": "删除文件",
+        "tags": ["文件操作"],
+        "parameters": [
+          {
+            "name": "path",
+            "in": "query",
+            "description": "文件路径",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "删除成功"
+          }
+        }
+      }
+    },
+    "/api/files/mkdir": {
+      "post": {
+        "summary": "创建目录",
+        "tags": ["文件操作"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "description": "目录路径"
+                  }
+                },
+                "required": ["path"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "创建成功"
+          }
+        }
+      }
+    },
+    "/api/account/info": {
+      "get": {
+        "summary": "获取账户信息",
+        "tags": ["账户管理"],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/trash/list": {
+      "get": {
+        "summary": "列出回收站",
+        "tags": ["回收站管理"],
+        "responses": {
+          "200": {
+            "description": "成功"
+          }
+        }
+      }
+    },
+    "/api/trash/move": {
+      "post": {
+        "summary": "移动到回收站",
+        "tags": ["回收站管理"],
+        "parameters": [
+          {
+            "name": "path",
+            "in": "query",
+            "description": "文件路径",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "移动成功"
+          }
+        }
+      }
+    },
+    "/api/trash/restore": {
+      "post": {
+        "summary": "恢复文件",
+        "tags": ["回收站管理"],
+        "parameters": [
+          {
+            "name": "path",
+            "in": "query",
+            "description": "文件路径",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "恢复成功"
+          }
+        }
+      }
+    },
+    "/api/trash/empty": {
+      "delete": {
+        "summary": "清空回收站",
+        "tags": ["回收站管理"],
+        "responses": {
+          "200": {
+            "description": "清空成功"
+          }
+        }
+      }
+    },
+    "/api/files/history": {
+      "get": {
+        "summary": "获取文件历史",
+        "tags": ["高级功能"],
+        "parameters": [
+          {
+            "name": "path",
+            "in": "query",
+            "description": "文件路径",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功"
+          }
+        }
+      }
+    },
+    "/api/files/batch-upload": {
+      "post": {
+        "summary": "批量上传",
+        "tags": ["高级功能"],
+        "parameters": [
+          {
+            "name": "concurrency",
+            "in": "query",
+            "description": "并发数",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 3
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "base_path": {
+                    "type": "string",
+                    "description": "基础路径"
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "上传成功"
+          }
+        }
+      }
+    },
+    "/api/files/batch-delete": {
+      "post": {
+        "summary": "批量删除",
+        "tags": ["高级功能"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "删除成功"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "File": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "文件名"
+          },
+          "path": {
+            "type": "string",
+            "description": "文件路径"
+          },
+          "size": {
+            "type": "integer",
+            "description": "文件大小"
+          },
+          "modified_time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "修改时间"
+          },
+          "is_dir": {
+            "type": "boolean",
+            "description": "是否为目录"
+          }
+        }
+      },
+      "Account": {
+        "type": "object",
+        "properties": {
+          "quota": {
+            "type": "integer",
+            "description": "总空间（字节）"
+          },
+          "used": {
+            "type": "integer",
+            "description": "已用空间（字节）"
+          },
+          "remaining": {
+            "type": "integer",
+            "description": "剩余空间（字节）"
+          },
+          "email": {
+            "type": "string",
+            "description": "邮箱"
+          },
+          "username": {
+            "type": "string",
+            "description": "用户名"
+          }
+        }
+      }
+    }
+  }
+}

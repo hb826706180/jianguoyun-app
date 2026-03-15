@@ -50,10 +50,10 @@ jianguoyun-app.exe
 | 方法 | 路径 | 说明 |
 |------|------|------|
 | GET | `/api/files/list?path=/` | 列出目录内容 |
-| POST | `/api/files/upload` | 上传文件 |
+| POST | `/api/files/upload` | 上传文件 (form-data: path, file) |
 | GET | `/api/files/download?path=` | 下载文件 |
 | DELETE | `/api/files/delete?path=` | 删除文件 |
-| POST | `/api/files/mkdir` | 创建目录 |
+| POST | `/api/files/mkdir` | 创建目录 (form-data: path) |
 
 详细 API 文档请查看 [api-doc.json](api-doc.json)。
 
