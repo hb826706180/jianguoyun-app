@@ -1,0 +1,20 @@
+# === 不公开的源码 ===
+*.go
+go.mod
+go.sum
+pkg/
+
+# === 敏感配置 ===
+config.ini
+
+# === 其他忽略 ===
+.aiassistant/
+.idea/
+.vscode/
+*.log
+cache/
+*.cache
+dist/
+
+# === 允许编译产物 ===
+!build/
