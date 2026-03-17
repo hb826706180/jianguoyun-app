@@ -11,7 +11,7 @@ docker-compose.yml
 Dockerfile
 
 # === 其他忽略 ===
-.trae\rules
+.trae/rules
 .dockerignore
 .gitignore
 .aiassistant/
