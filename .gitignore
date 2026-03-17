@@ -20,7 +20,7 @@ __debug_bin.exe
 jianguoyun-app.exe
 downloaded_*.txt
 test.txt
-*.dm
+项目文档.md
 
 # === 允许编译产物 ===
 !build/
