@@ -11,6 +11,8 @@ docker-compose.yml
 Dockerfile
 
 # === 其他忽略 ===
+.dockerignore
+.gitignore
 .aiassistant/
 .idea/
 .vscode/
@@ -21,10 +23,10 @@ dist/
 *.md
 *.sh
 *.ps1
+api-doc.json
 
 # === 允许编译产物 ===
 
 
 # === 允许部署文档 ===
 !README.md
-!api-doc.json
