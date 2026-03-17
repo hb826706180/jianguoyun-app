@@ -25,7 +25,7 @@ deploy.ps
 build.sh
 
 # === 允许编译产物 ===
-!build/
+
 
 # === 允许部署文档 ===
 !README.md
