@@ -1,0 +1,6 @@
+- # 项目核心信息
+  - 项目名称：Golang Gin RESTful 后端服务
+  - 技术栈：Go 1.21+、Gin 1.9+、GORM 1.25+、MySQL 8.0+
+  - 项目类型：RESTful API 服务（无前端，仅提供接口）
+  - 编码格式：UTF-8，换行符 LF（Linux/Mac）/ CRLF（Windows）兼容
+  - 修改代码后自行调试验证,没有问题后,需要更新api-doc.json/README.md,再进行交付
