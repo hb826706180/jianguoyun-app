@@ -3,6 +3,7 @@
 go.mod
 go.sum
 pkg/
+main.go
 
 # === 敏感配置 ===
 config.ini
@@ -15,6 +16,15 @@ config.ini
 cache/
 *.cache
 dist/
+__debug_bin.exe
+jianguoyun-app.exe
+downloaded_*.txt
+test.txt
 
 # === 允许编译产物 ===
 !build/
+
+# === 允许部署文档 ===
+!README.md
+!api-doc.json
+!build.sh
