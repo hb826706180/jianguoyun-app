@@ -181,33 +181,7 @@ curl -X POST http://localhost:8081/webdav/files/batch-delete \
 
 > **获取坚果云应用密码**：登录坚果云官网 → 账户信息 → 安全选项 → 应用密码
 
-## 编译说明
 
-如需自行编译，请确保已安装 Go 1.25.1+：
-
-```bash
-# Windows
-go build -o jianguoyun-app.exe
-
-# Linux
-CGO_ENABLED=0 GOOS=linux go build -o jianguoyun-app-linux
-
-# macOS
-CGO_ENABLED=0 GOOS=darwin go build -o jianguoyun-app-darwin
-```
-
-或使用编译脚本：
-
-```bash
-# Windows
-编译 wins.bat
-
-# Linux
-编译 linux.bat
-
-# 所有平台
-编译 all.bat
-```
 
 ## Docker 部署
 
@@ -239,74 +213,9 @@ docker run -d \
   jianguoyun-app
 ```
 
-## 项目结构
 
-```
-jianguoyun/
-├── build/                  # 编译输出目录（保留各平台编译产物）
-├── pkg/
-│   ├── config/             # 配置模块
-│   │   └── config.go       # 配置加载与访问
-│   ├── file/               # 文件操作模块
-│   │   ├── handlers/       # API 处理器
-│   │   ├── models/         # 数据模型
-│   │   └── services/       # 业务逻辑（含备份/同步/断点续传）
-│   ├── middleware/         # 中间件（速率限制）
-│   ├── routes/             # 路由配置（集中管理）
-│   └── utils/              # 工具函数（加密/日志轮转）
-├── .aiassistant/           # AI 助手配置
-├── .idea/                  # IDE 配置
-├── config.ini.example      # 配置示例（模板文件）
-├── main.go                 # 程序入口
-├── api-doc.json            # OpenAPI 文档
-├── ERROR_CODES.md          # 错误码文档
-├── Dockerfile              # Docker 构建文件
-├── docker-compose.yml      # Docker Compose 配置
-├── go.mod                  # Go 模块定义
-├── README.md               # 本文件
-└── LICENSE                 # 许可证
-```
 
-**不生成/忽略的目录：**
-- `cache/` - 缓存目录（运行时创建）
-- `logs/` - 日志目录（运行时创建）
-- `config.ini` - 实际配置文件（不提交）
-- `dist/` - 旧发布包目录（已清理）
 
-## 项目规划
-
-### 项目目标
-开发一个基于 Golang 的坚果云文件操作 API 服务，通过 WebDAV 协议实现文件管理功能。
-
-### 技术栈
-| 组件 | 版本 | 说明 |
-|------|------|------|
-| Go | 1.25.1 | 编程语言 |
-| Gin | 1.12.0 | Web 框架 |
-| ini | 1.67.1 | 配置文件解析 |
-| WebDAV | - | 文件传输协议 |
-
-## 进度记录
-
-| 时间 | 任务 | 状态 | 说明 |
-|------|------|------|------|
-| 2026-03-15 | 创建项目结构 | ✅ 已完成 | 基础目录结构搭建 |
-| 2026-03-15 | 实现文件操作 API | ✅ 已完成 | 增删改查功能 |
-| 2026-03-15 | 创建配置文件模块 | ✅ 已完成 | config.ini + pkg/config |
-| 2026-03-15 | 创建编译脚本 | ✅ 已完成 | Windows/Linux 编译 |
-| 2026-03-15 | 更新 API 文档 | ✅ 已完成 | api-doc.json v1.0.0 |
-| 2026-03-15 | 准备公开发布 | ✅ 已完成 | 创建 README、LICENSE、发布脚本 |
-| 2026-03-15 | 功能增强开发 | ✅ 已完成 | 新增账户信息、回收站、批量操作、断点续传、备份同步、加密、限流、日志轮转、Docker 部署、单元测试、错误码文档 |
-| 2026-03-15 | 路由重构 | ✅ 已完成 | 将路由代码独立到 pkg/routes，便于扩展维护 |
-| 2026-03-15 | 命名规范修正 | ✅ 已完成 | 所有函数和变量使用中文命名，公开函数使用 A_ 前缀 |
-| 2026-03-15 | 文档合并 | ✅ 已完成 | 将说明文档内容整合到 README，删除重复文档 |
-
-## 待办任务
-
-- [ ] 添加 MySQL 数据库支持（配置已预留）
-- [ ] 添加日志文件轮转功能
-- [ ] 添加单元测试
-- [ ] 添加 Docker 部署配置
 
 ## 注意事项
 
