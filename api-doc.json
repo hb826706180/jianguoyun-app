@@ -20,7 +20,7 @@
     }
   ],
   "paths": {
-    "/api/files/list": {
+    "/webdav/files/list": {
       "get": {
         "summary": "列出目录内容",
         "tags": ["文件操作"],
@@ -53,7 +53,7 @@
         }
       }
     },
-    "/api/files/upload": {
+    "/webdav/files/upload": {
       "post": {
         "summary": "上传文件",
         "tags": ["文件操作"],
@@ -86,7 +86,7 @@
         }
       }
     },
-    "/api/files/download": {
+    "/webdav/files/download": {
       "get": {
         "summary": "下载文件",
         "tags": ["文件操作"],
@@ -116,7 +116,7 @@
         }
       }
     },
-    "/api/files/delete": {
+    "/webdav/files/delete": {
       "delete": {
         "summary": "删除文件",
         "tags": ["文件操作"],
@@ -138,7 +138,7 @@
         }
       }
     },
-    "/api/files/mkdir": {
+    "/webdav/files/mkdir": {
       "post": {
         "summary": "创建目录",
         "tags": ["文件操作"],
@@ -166,7 +166,7 @@
         }
       }
     },
-    "/api/account/info": {
+    "/webdav/account/info": {
       "get": {
         "summary": "获取账户信息",
         "tags": ["账户管理"],
@@ -184,95 +184,8 @@
         }
       }
     },
-    "/api/trash/list": {
-      "get": {
-        "summary": "列出回收站",
-        "tags": ["回收站管理"],
-        "responses": {
-          "200": {
-            "description": "成功"
-          }
-        }
-      }
-    },
-    "/api/trash/move": {
-      "post": {
-        "summary": "移动到回收站",
-        "tags": ["回收站管理"],
-        "parameters": [
-          {
-            "name": "path",
-            "in": "query",
-            "description": "文件路径",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "移动成功"
-          }
-        }
-      }
-    },
-    "/api/trash/restore": {
-      "post": {
-        "summary": "恢复文件",
-        "tags": ["回收站管理"],
-        "parameters": [
-          {
-            "name": "path",
-            "in": "query",
-            "description": "文件路径",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "恢复成功"
-          }
-        }
-      }
-    },
-    "/api/trash/empty": {
-      "delete": {
-        "summary": "清空回收站",
-        "tags": ["回收站管理"],
-        "responses": {
-          "200": {
-            "description": "清空成功"
-          }
-        }
-      }
-    },
-    "/api/files/history": {
-      "get": {
-        "summary": "获取文件历史",
-        "tags": ["高级功能"],
-        "parameters": [
-          {
-            "name": "path",
-            "in": "query",
-            "description": "文件路径",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "成功"
-          }
-        }
-      }
-    },
-    "/api/files/batch-upload": {
+
+    "/webdav/files/batch-upload": {
       "post": {
         "summary": "批量上传",
         "tags": ["高级功能"],
@@ -318,7 +231,7 @@
         }
       }
     },
-    "/api/files/batch-delete": {
+    "/webdav/files/batch-delete": {
       "post": {
         "summary": "批量删除",
         "tags": ["高级功能"],

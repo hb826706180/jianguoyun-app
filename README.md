@@ -10,8 +10,6 @@
 - ✅ 文件删除
 - ✅ 目录创建
 - ✅ 账户信息查询
-- ✅ 回收站管理
-- ✅ 文件历史版本查询
 - ✅ 批量操作（支持并发控制）
 - ✅ 断点续传支持
 
@@ -69,34 +67,26 @@ jianguoyun-app.exe
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| GET | `/api/files/list?path=/` | 列出目录内容 |
-| POST | `/api/files/upload` | 上传文件 (form-data: path, file) |
-| GET | `/api/files/download?path=` | 下载文件 |
-| DELETE | `/api/files/delete?path=` | 删除文件 |
-| POST | `/api/files/mkdir` | 创建目录 (form-data: path) |
+| GET | `/webdav/files/list?path=/` | 列出目录内容 |
+| POST | `/webdav/files/upload` | 上传文件 (form-data: path, file) |
+| GET | `/webdav/files/download?path=` | 下载文件 |
+| DELETE | `/webdav/files/delete?path=` | 删除文件 |
+| POST | `/webdav/files/mkdir` | 创建目录 (form-data: path) |
 
 ### 账户管理
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| GET | `/api/account/info` | 获取账户信息 |
+| GET | `/webdav/account/info` | 获取账户信息 |
 
-### 回收站管理
 
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| GET | `/api/trash/list` | 列出回收站 |
-| POST | `/api/trash/move?path=` | 移动到回收站 |
-| POST | `/api/trash/restore?path=` | 恢复文件 |
-| DELETE | `/api/trash/empty` | 清空回收站 |
 
 ### 高级功能
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| GET | `/api/files/history?path=` | 获取文件历史版本 |
-| POST | `/api/files/batch-upload` | 批量上传 |
-| POST | `/api/files/batch-delete` | 批量删除 |
+| POST | `/webdav/files/batch-upload` | 批量上传 |
+| POST | `/webdav/files/batch-delete` | 批量删除 |
 
 详细 API 文档请查看 [api-doc.json](api-doc.json) 和 [ERROR_CODES.md](ERROR_CODES.md)。
 
@@ -106,56 +96,42 @@ jianguoyun-app.exe
 
 ```bash
 # 列出文件
-curl http://localhost:8081/api/files/list?path=/
+curl http://localhost:8081/webdav/files/list?path=/
 
 # 上传文件
-curl -X POST http://localhost:8081/api/files/upload -F "path=/test.txt" -F "file=@./file.txt"
+curl -X POST http://localhost:8081/webdav/files/upload -F "path=/test.txt" -F "file=@./file.txt"
 
 # 下载文件
-curl -o out.txt "http://localhost:8081/api/files/download?path=/test.txt"
+curl -o out.txt "http://localhost:8081/webdav/files/download?path=/test.txt"
 
 # 删除文件
-curl -X DELETE "http://localhost:8081/api/files/delete?path=/test.txt"
+curl -X DELETE "http://localhost:8081/webdav/files/delete?path=/test.txt"
 
 # 创建目录
-curl -X POST http://localhost:8081/api/files/mkdir -F "path=/new-folder"
+curl -X POST http://localhost:8081/webdav/files/mkdir -F "path=/new-folder"
 ```
 
 ### 账户管理
 
 ```bash
 # 获取账户信息
-curl http://localhost:8081/api/account/info
+curl http://localhost:8081/webdav/account/info
 ```
 
-### 回收站操作
 
-```bash
-# 列出回收站
-curl http://localhost:8081/api/trash/list
-
-# 移动到回收站
-curl -X POST "http://localhost:8081/api/trash/move?path=/test.txt"
-
-# 恢复文件
-curl -X POST "http://localhost:8081/api/trash/restore?path=/.trash/test.txt"
-
-# 清空回收站
-curl -X DELETE http://localhost:8081/api/trash/empty
-```
 
 ### 批量操作
 
 ```bash
 # 批量上传（并发数 5）
-curl -X POST "http://localhost:8081/api/files/batch-upload?concurrency=5" \
+curl -X POST "http://localhost:8081/webdav/files/batch-upload?concurrency=5" \
   -F "base_path=/backup" \
   -F "files=@file1.txt" \
   -F "files=@file2.txt" \
   -F "files=@file3.txt"
 
 # 批量删除
-curl -X POST http://localhost:8081/api/files/batch-delete \
+curl -X POST http://localhost:8081/webdav/files/batch-delete \
   -H "Content-Type: application/json" \
   -d '["/file1.txt", "/file2.txt", "/file3.txt"]'
 ```
@@ -267,7 +243,7 @@ docker run -d \
 
 ```
 jianguoyun/
-├── build/                  # 编译输出目录
+├── build/                  # 编译输出目录（保留各平台编译产物）
 ├── pkg/
 │   ├── config/             # 配置模块
 │   │   └── config.go       # 配置加载与访问
@@ -278,10 +254,9 @@ jianguoyun/
 │   ├── middleware/         # 中间件（速率限制）
 │   ├── routes/             # 路由配置（集中管理）
 │   └── utils/              # 工具函数（加密/日志轮转）
-├── cache/                  # 缓存目录
-├── logs/                   # 日志目录
-├── config.ini              # 配置文件（不提交）
-├── config.ini.example      # 配置示例
+├── .aiassistant/           # AI 助手配置
+├── .idea/                  # IDE 配置
+├── config.ini.example      # 配置示例（模板文件）
 ├── main.go                 # 程序入口
 ├── api-doc.json            # OpenAPI 文档
 ├── ERROR_CODES.md          # 错误码文档
@@ -291,6 +266,12 @@ jianguoyun/
 ├── README.md               # 本文件
 └── LICENSE                 # 许可证
 ```
+
+**不生成/忽略的目录：**
+- `cache/` - 缓存目录（运行时创建）
+- `logs/` - 日志目录（运行时创建）
+- `config.ini` - 实际配置文件（不提交）
+- `dist/` - 旧发布包目录（已清理）
 
 ## 项目规划
 
