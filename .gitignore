@@ -23,12 +23,7 @@ cache/
 dist/
 *.md
 *.sh
-*.ps1
-api-doc.json
-
-# === 允许编译产物 ===
-
-
-# === 允许部署文档 ===
+推送.ps1
 !README.md
 !CHANGELOG.md
+
