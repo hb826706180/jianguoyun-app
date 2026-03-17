@@ -7,6 +7,8 @@ main.go
 
 # === 敏感配置 ===
 config.ini
+docker-compose.yml
+Dockerfile
 
 # === 其他忽略 ===
 .aiassistant/
