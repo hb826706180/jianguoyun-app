@@ -16,13 +16,9 @@ config.ini
 cache/
 *.cache
 dist/
-__debug_bin.exe
-jianguoyun-app.exe
-downloaded_*.txt
-test.txt
-项目文档.md
-deploy.ps
-编译.sh
+*.md
+*.sh
+*.ps1
 
 # === 允许编译产物 ===
 
