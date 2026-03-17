@@ -30,3 +30,4 @@ api-doc.json
 
 # === 允许部署文档 ===
 !README.md
+!CHANGELOG.md
