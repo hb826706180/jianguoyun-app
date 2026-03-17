@@ -11,6 +11,7 @@ docker-compose.yml
 Dockerfile
 
 # === 其他忽略 ===
+.trae/
 .aiassistant/
 .idea/
 .vscode/
