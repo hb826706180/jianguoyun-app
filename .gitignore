@@ -11,19 +11,17 @@ docker-compose.yml
 Dockerfile
 
 # === 其他忽略 ===
-.trae/
-.dockerignore
-.gitignore
 .aiassistant/
 .idea/
 .vscode/
-*.log
+.dist/
 cache/
-*.cache
-dist/
-*.md
+.dockerignore
+.gitignore
+*.log
 *.sh
-推送.ps1
+*.ps1
+*.md
 !README.md
 !CHANGELOG.md
-
+!推送.ps1
