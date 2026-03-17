@@ -21,7 +21,8 @@ jianguoyun-app.exe
 downloaded_*.txt
 test.txt
 项目文档.md
-deploy.ps1
+deploy.ps
+build.sh
 
 # === 允许编译产物 ===
 !build/
